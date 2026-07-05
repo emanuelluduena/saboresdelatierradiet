@@ -548,7 +548,7 @@ const productos = [
   // ===== OTROS =====
   {
     nombre: "Pasta de Maní x 1 kg",
-    precio: 6000,
+    precio: 7500,
     descripcion: "Proteínas · Grasas saludables · Energía · Sin aditivos",
     imagen: "img/pasta-mani.jpg",
     categoria: "otros",
