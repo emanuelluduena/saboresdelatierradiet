@@ -47,7 +47,7 @@ function abrirWhatsApp() {
    CATEGORÍAS
    ===================================== */
 const categorias = [
-  { nombre: "Semillas que Suman", url: "semillas.html", icono: "ti-plant-2" },
+  { nombre: "Semillas que Nutren", url: "semillas.html", icono: "ti-plant-2" },
   { nombre: "El Snack Perfecto", url: "frutos-secos.html", icono: "ti-tools-kitchen-2" },
   { nombre: "La Cocina Empieza Acá", url: "Harinas.html", icono: "ti-building-store" },
   { nombre: "Dulce Consentido", url: "Reposteria.html", icono: "ti-cake" },
@@ -1618,6 +1618,14 @@ if (footerPrincipal) {
 
     <div class="footer-mapa">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3404.4995324815764!2d-64.19172682585365!3d-31.42791209680599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a28ecb3d95cd%3A0x199ee3917b3d1e98!2sIndependencia%201054%2C%20X5014IUV%20C%C3%B3rdoba!5e0!3m2!1ses-419!2sar!4v1780504772009!5m2!1ses-419!2sar" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="footer-credito">
+      <a href="https://www.devkore.com.ar" target="_blank" class="footer-credito-link">
+        <span class="footer-credito-dev">Dev</span><span class="footer-credito-kore">&lt;Kore&gt;</span>
+      </a>
+      <p class="footer-credito-slogan">Soluciones a medida, sin vueltas</p>
+      <p class="footer-credito-url">www.devkore.com.ar</p>
     </div>
   `;
 }

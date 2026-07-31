@@ -429,13 +429,13 @@ nav a:hover {
 footer {
   background-color: var(--verde-principal);
   color: white;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  padding: 14px 30px;
+  gap: 18px;
+  padding: 6px 20px;
   flex-wrap: wrap;
 }
 
@@ -443,7 +443,7 @@ footer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 28px;
+  gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -454,10 +454,10 @@ footer {
 
 .footer-mapa iframe {
   display: block;
-  width: 260px;
-  height: 110px;
+  width: 170px;
+  height: 65px;
   border: 0;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 @media (max-width: 600px) {
@@ -1552,4 +1552,52 @@ main {
 }
 .logo-texto {
   filter: brightness(0) saturate(100%) invert(27%) sepia(50%) saturate(800%) hue-rotate(345deg) brightness(75%) contrast(90%);
+}
+
+.footer-credito {
+  text-align: center;
+  margin-top: 2px;
+  padding-top: 2px;
+}
+
+.footer-credito-link {
+  display: inline-block;
+  background: #0a0f0d;
+  padding: 5px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.footer-credito-link:hover {
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.footer-credito-dev {
+  color: #f0fffa;
+}
+
+.footer-credito-kore {
+  color: #3ee6b4;
+}
+
+.footer-credito-slogan {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  color: #fff8ec;
+  opacity: 0.75;
+  margin: 3px 0 0;
+}
+
+.footer-credito-url {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  color: #fff8ec;
+  opacity: 0.6;
+  margin: 1px 0 0;
 }
