@@ -1542,52 +1542,7 @@ main {
   background: #0b755b;
 }
 
-/* ===== MUNDIAL 2026 ===== */
-@keyframes flamear {
-  0%   { transform: rotate(-8deg) scale(1); }
-  50%  { transform: rotate(8deg) scale(1.1); }
-100% { transform: rotate(-8deg) scale(1); }
-}
 
-/* ===== CONFETTI MUNDIAL ===== */
-@keyframes caerConfetti {
-  0%   { transform: translateY(0) rotate(0deg);   opacity: 0.85; }
-  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-}
-
-
-@keyframes pulsarSol {
-  0%   { transform: translate(-50%, -50%) scale(1);    opacity: 0.8; }
-  50%  { transform: translate(-50%, -50%) scale(1.12); opacity: 1;   }
-  100% { transform: translate(-50%, -50%) scale(1);    opacity: 0.8; }
-}
-
-/* ===== BOTÓN MUNDIAL 2026 ===== */
-.btn-producto {
-  background: linear-gradient(135deg, #4FA8D8 0%, #ffffff 50%, #4FA8D8 100%) !important;
-  color: #003087 !important;
-  font-weight: 700 !important;
-  border: 2px solid #4FA8D8 !important;
-}
-
-.btn-producto:hover {
-  background: linear-gradient(135deg, #003087 0%, #4FA8D8 100%) !important;
-  color: #ffffff !important;
-  border-color: #003087 !important;
-}
-
-.btn-variante {
-  background: linear-gradient(135deg, #4FA8D8 0%, #ffffff 50%, #4FA8D8 100%) !important;
-  color: #003087 !important;
-  font-weight: 700 !important;
-  border: 2px solid #4FA8D8 !important;
-}
-
-.btn-variante:hover {
-  background: linear-gradient(135deg, #003087 0%, #4FA8D8 100%) !important;
-  color: #ffffff !important;
-  border-color: #003087 !important;
-}
 
 /* Productos destacados más chicos en PC */
 @media (min-width: 601px) {
