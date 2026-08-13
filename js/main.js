@@ -1008,9 +1008,19 @@ function crearCarrusel(idContenedor, listaProductos) {
     });
   }
 
+  function pausarTodosLosVideos() {
+    const iframes = track.querySelectorAll("iframe");
+    iframes.forEach(iframe => {
+      const src = iframe.src;
+      iframe.src = "";
+      iframe.src = src;
+    });
+  }
+
   function mover(dir) {
     if (bloqueado) return;
     bloqueado = true;
+    pausarTodosLosVideos();
     pos += dir;
     aplicarEstilos(true);
 
@@ -1299,10 +1309,17 @@ document.addEventListener("click", function(e) {
   const total = lista.length;
 
   const anchoWrapper = wrapper.parentElement.offsetWidth || window.innerWidth;
-  const ANCHO_CENTRO  = Math.round(anchoWrapper * 0.38);
-  const ANCHO_LATERAL = Math.round(anchoWrapper * 0.28);
+  const esMobile = anchoWrapper < 600;
+
+  const PORC_CENTRO  = esMobile ? 0.85 : 0.38;
+  const PORC_LATERAL = esMobile ? 0.15 : 0.28;
+
+  const ANCHO_CENTRO  = Math.round(anchoWrapper * PORC_CENTRO);
+  const ANCHO_LATERAL = Math.round(anchoWrapper * PORC_LATERAL);
   const PASO = ANCHO_LATERAL;
   const GAP = 0;
+
+  const ALTO_CARD = esMobile ? Math.round(ANCHO_CENTRO * 1.5) : 500;
 
   // Triple para loop infinito
   const listaTriple = [...lista, ...lista, ...lista];
@@ -1329,7 +1346,7 @@ document.addEventListener("click", function(e) {
     card.style.cssText = `
       flex-shrink: 0;
       width: ${ANCHO_LATERAL}px;
-      height: 500px;
+      height: ${ALTO_CARD}px;
       opacity: 0.5;
       transform: scale(0.88);
       transition: width 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
@@ -1374,9 +1391,19 @@ document.addEventListener("click", function(e) {
     if (window.instgrm) window.instgrm.Embeds.process();
   }
 
+  function pausarTodosLosVideos() {
+    const iframes = track.querySelectorAll("iframe");
+    iframes.forEach(iframe => {
+      const src = iframe.src;
+      iframe.src = "";
+      iframe.src = src;
+    });
+  }
+
   function mover(dir) {
     if (bloqueado) return;
     bloqueado = true;
+    pausarTodosLosVideos();
     pos += dir;
     aplicarEstilos(true);
 
@@ -1404,10 +1431,14 @@ document.addEventListener("click", function(e) {
 
   // Autoplay cada 4 segundos
   let autoPlay = setInterval(() => mover(1), 4000);
-  wrapper.addEventListener("touchstart", () => {
+
+  function detenerAutoPlay() {
     clearInterval(autoPlay);
-    autoPlay = setInterval(() => mover(1), 4000);
-  }, { passive: true });
+  }
+
+  wrapper.addEventListener("touchstart", detenerAutoPlay, { passive: true });
+  wrapper.addEventListener("mouseenter", detenerAutoPlay);
+  wrapper.addEventListener("click", detenerAutoPlay);
 }
 
 // Espera que los embeds de Instagram carguen antes de iniciar
