@@ -22,32 +22,21 @@
     <p>Productos naturales seleccionados con cuidado</p>
   </section>
 
-  <!-- BUSCADOR -->
-  <div style="text-align: center; padding: 20px;">
-    <input 
-      type="text" 
-      id="buscador" 
-      placeholder="🔍 Buscar productos..."
-      oninput="buscarProductos(this.value)"
-      style="width: 90%; max-width: 500px; padding: 12px 20px; font-size: 16px; border: 2px solid #6b8e23; border-radius: 30px; outline: none;"
-    >
-  </div>
-
   <div id="resultados-busqueda" style="display:none; padding: 20px;">
     <h2 style="text-align:center;">Resultados</h2>
     <div id="grid-resultados" class="productos-grid" style="justify-content: center;"></div>
   </div>
 
-  <!-- PRODUCTOS DESTACADOS -->
-  <section class="productos">
-    <h2>Productos Destacados</h2>
-    <div class="productos-grid" id="productos-destacados"></div>
-  </section>
-
   <!-- CATEGORÍAS -->
   <section class="categorias">
     <h2>Categorías</h2>
     <div class="categorias-grid"></div>
+  </section>
+
+  <!-- PRODUCTOS DESTACADOS -->
+  <section class="productos">
+    <h2>Productos Destacados</h2>
+    <div class="productos-grid" id="productos-destacados"></div>
   </section>
 
   <section class="instagram-section">

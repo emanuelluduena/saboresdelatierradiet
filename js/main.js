@@ -21,6 +21,19 @@ if (headerPrincipal) {
       <a href="index.html">Inicio</a>
       <a href="productos.html">Productos</a>
       <a href="nosotros.html">Nosotros</a>
+      <div class="buscador-header" id="buscador-header">
+        <button class="buscador-toggle" onclick="toggleBuscadorHeader()" aria-label="Buscar productos">
+          <i class="ti ti-search"></i>
+        </button>
+        <input
+          type="text"
+          id="buscador"
+          class="buscador-input"
+          placeholder="Buscar productos..."
+          oninput="onBuscadorHeaderInput(this.value)"
+          onkeydown="onBuscadorHeaderKeydown(event)"
+        >
+      </div>
       <a href="#" class="nav-carrito" onclick="abrirCarrito(); return false;">
         <span>Carrito</span>
         <div class="carrito-icono">
@@ -30,6 +43,51 @@ if (headerPrincipal) {
       </a>
     </nav>
   `;
+}
+
+/* =====================================
+   BUSCADOR DEL HEADER
+   ===================================== */
+function toggleBuscadorHeader() {
+  const cont = document.getElementById("buscador-header");
+  if (!cont) return;
+  cont.classList.toggle("activo");
+  if (cont.classList.contains("activo")) {
+    const input = document.getElementById("buscador");
+    if (input) input.focus();
+  }
+}
+
+function onBuscadorHeaderInput(valor) {
+  // Si estamos en index.html existe el contenedor de resultados
+  if (document.getElementById("resultados-busqueda")) {
+    buscarProductos(valor);
+  }
+}
+
+function onBuscadorHeaderKeydown(evento) {
+  if (evento.key !== "Enter") return;
+  const valor = evento.target.value.trim();
+  if (!valor) return;
+
+  // Si NO estamos en index.html, redirige ahí con la búsqueda
+  if (!document.getElementById("resultados-busqueda")) {
+    window.location.href = "index.html?buscar=" + encodeURIComponent(valor);
+  }
+}
+
+function aplicarBusquedaDesdeURL() {
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get("buscar");
+  if (!query) return;
+
+  const input = document.getElementById("buscador");
+  const cont = document.getElementById("buscador-header");
+  if (input) {
+    input.value = query;
+    if (cont) cont.classList.add("activo");
+    buscarProductos(query);
+  }
 }
 
 
@@ -1480,6 +1538,7 @@ function eliminarProducto(nombre) {
    INICIAR
    ===================================== */
 cargarCarrito();
+aplicarBusquedaDesdeURL();
 
 /* =====================================
    BUSCADOR
@@ -1693,4 +1752,3 @@ function toggleAcordeon(boton) {
   const item = boton.parentElement;
   item.classList.toggle("activo");
 } 
-
