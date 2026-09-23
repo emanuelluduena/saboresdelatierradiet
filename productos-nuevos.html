@@ -1,0 +1,89 @@
+Puede ser un par de cosas distintas — a ver si identificamos cuál:
+
+¿Es que el archivo que descargaste en el celular pesa 0 KB / aparece vacío al abrirlo ahí? ¿O es que ya lo subiste a GitHub y ahí, al abrir `productos-nuevos.html` en el repositorio, no ves código adentro?
+
+El archivo si tiene contenido (le acabo de confirmar que pesa unos 3.400 caracteres, con toda la estructura de la página). Así que probablemente fue un problema en la descarga o en la subida, no que el archivo esté realmente vacío.
+
+Mientras me confirmás, te dejo el contenido pegado acá directamente, por si es más fácil copiarlo a mano que descargar el archivo:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Novedades | Sabores de la Tierra</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+</head>
+
+<body>
+
+  <header id="header-principal"></header>
+  <main>
+
+    
+   <section class="categorias">
+  <h2>Categorías</h2>
+  <div class="categorias-grid"></div>
+</section>
+
+
+<section class="productos">
+  <h2>Novedades</h2>
+  <div class="productos-grid" id="productos-categoria"></div>
+</section>
+
+  </main>
+
+  <footer id="footer-principal"></footer>
+
+<a
+  href="https://wa.me/5493515426971?text=Hola%20%F0%9F%91%8B%F0%9F%98%8A%20quisiera%20hacer%20una%20consulta%20sobre%20sus%20productos%20naturales%20%F0%9F%8C%B1"
+
+
+  class="whatsapp-float"
+  target="_blank"
+  aria-label="Contactar por WhatsApp"
+>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+    alt="WhatsApp"
+  />
+</a>
+
+<script>
+  const categoriaActual = "productos-nuevos";
+</script>
+<script src="js/main.js"></script>
+
+
+<div class="carrito-overlay" id="carrito-overlay" onclick="cerrarCarrito()"></div>
+
+<div class="carrito-panel" id="carrito-panel">
+  <div class="carrito-panel-header">
+    <h2>Tu pedido 🛒</h2>
+    <button class="carrito-cerrar" onclick="cerrarCarrito()">✕</button>
+  </div>
+  <div class="carrito-items" id="carrito-items">
+    <p class="carrito-vacio">El carrito está vacío</p>
+  </div>
+  <div class="carrito-panel-footer">
+    <strong>Total: $<span id="carrito-total">0</span></strong>
+    <button id="btn-finalizar-compra" class="btn-finalizar">
+      Finalizar Compra
+    </button>
+  </div>
+</div>
+
+</body>
+</html>
+```
