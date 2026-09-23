@@ -116,837 +116,37 @@ const categorias = [
   { nombre: "Infusiones & Cafés", url: "cafes.html", icono: "ti-coffee" },
   { nombre: "Endulzantes & Naturales", url: "endulzantes.html", icono: "ti-bottle" },
   { nombre: "El Rincón del Chocolate", url: "chocolates.html", icono: "ti-candy" },
+  { nombre: "Novedades", url: "productos-nuevos.html", icono: "ti-sparkles" },
 ];
 
 /* =====================================
-   PRODUCTOS
+   PRODUCTOS (se cargan desde Supabase)
    ===================================== */
-const productos = [
+const SUPABASE_URL = "https://cqbguypqwwcvyakxlfxw.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxYmd1eXBxd3djdnlha3hsZnh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwNDI3NjIsImV4cCI6MjEwNTYxODc2Mn0.d6EwyOvPpgKh7sHlMQ1wDGJj8ZUscYN9ogFUwnv54Bc";
 
-  // ===== FRUTOS SECOS =====
-  {
-    nombre: "Castañas de Cajú x 1 kg",
-    precio: 25000,
-    descripcion: "Energía · Grasas saludables · Proteínas · Antioxidantes",
-    imagen: "img/castanas.jpg",
-    categoria: "frutos-secos"
-  },
-  {
-    nombre: "Almendras x 1 kg",
-    precio: 30000,
-    descripcion: "Vitamina E · Calcio · Proteínas · Grasas saludables",
-    imagen: "img/almendras.jpg",
-    categoria: "frutos-secos"
-  },
-  {
-    nombre: "Nueces x 1 kg",
-    precio: 23000,
-    descripcion: "Omega 3 · Antioxidantes · Proteínas · Energía",
-    imagen: "img/nueces.jpg",
-    categoria: "frutos-secos"
-  },
-  {
-    nombre: "Pistachos x 500 g",
-    precio: 25000,
-    descripcion: "Proteínas · Hierro · Grasas buenas · Antioxidantes",
-    imagen: "img/pistachos.jpg",
-    categoria: "frutos-secos"
-  },
-  {
-    nombre: "Maní con Sal x 1 kg",
-    precio: 4000,
-    descripcion: "Proteínas · Energía · Grasas saludables · Saciedad",
-    imagen: "img/mani-con-sal.jpg",
-    categoria: "frutos-secos"
-  },
-  {
-    nombre: "Maní sin Sal x 1 kg",
-    precio: 4000,
-    descripcion: "Proteínas · Energía · Grasas saludables · Natural",
-    imagen: "img/mani-sin-sal.jpg",
-    categoria: "frutos-secos"
-  },
-  {
-    nombre: "Mix Nevado x 1 kg",
-    precio: 15000,
-    descripcion: "Energía · Vitaminas · Antioxidantes · Natural",
-    imagen: "img/mix-nevado.jpg",
-    categoria: "frutos-secos",
-    contenido: "Nueces · Almendras · Castañas · Maní · Arándanos · Semillas de girasol · Coco en escamas",
-    video: "https://www.youtube.com/embed/0-cn79bhIpw"
-  },
-  {
-    nombre: "Mix Clásico x 1 kg",
-    precio: 13000,
-    descripcion: "Energía · Proteínas · Fibra · Natural",
-    imagen: "img/mix-clasico.jpg",
-    categoria: "frutos-secos",
-    contenido: "Nueces · Almendras · Pasas · Castañas · Maní"
-  },
-  {
-    nombre: "Mix sin Pasas x 1 kg",
-    precio: 16000,
-    descripcion: "Energía · Proteínas · Grasas saludables · Natural",
-    imagen: "img/mix-sin-pasas.jpg",
-    categoria: "frutos-secos",
-    contenido: "Nueces · Almendras · Castañas · Maní"
-  },
-  {
-    nombre: "Mix sin Maní x 1 kg",
-    precio: 16000,
-    descripcion: "Energía · Antioxidantes · Vitaminas · Natural",
-    imagen: "img/mix-sin-mani.jpg",
-    categoria: "frutos-secos",
-    contenido: "Nueces · Almendras · Pasas · Castañas"
-  },
-  {
-    nombre: "Mix Tropical x 1 kg",
-    precio: 15000,
-    descripcion: "Energía · Vitaminas · Fibra · Natural",
-    imagen: "img/mix-tropical.jpg",
-    categoria: "frutos-secos",
-    contenido: "Nueces · Almendras · Pasas · Castañas · Maní · Banana · Ananá",
-    destacado: true
-  },
-  {
-    nombre: "Mix Premium x 1 kg",
-    precio: 27000,
-    descripcion: "Omega 3 · Proteínas · Antioxidantes · Grasas saludables",
-    imagen: "img/mix-premium.jpg",
-    categoria: "frutos-secos",
-    contenido: "Nueces · Almendras · Castañas",
-    destacado: true
-  },
-  {
-    nombre: "Mix Salado x 1 kg",
-    precio: 10000,
-    descripcion: "Energía · Proteínas · Fibra · Saciedad",
-    imagen: "img/mix-salado.jpg",
-    categoria: "frutos-secos",
-    contenido: "Nueces · Semillas de girasol · Semillas de zapallo · Maní salado · Maní saborizado · Maíz frito"
-  },
+let productos = [];
 
-  // ===== SEMILLAS =====
-  {
-    nombre: "Semillas de Girasol x 500 g",
-    precio: 2250,
-    descripcion: "Vitamina E · Grasas saludables · Antioxidantes · Energía",
-    imagen: "img/semillas-girasol.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semilla de Sésamo Blanco x 500 g",
-    precio: 4500,
-    descripcion: "Calcio · Hierro · Grasas buenas · Antioxidantes",
-    imagen: "img/sesamo-blanco.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semilla de Sésamo Negro x 500 g",
-    precio: 6500,
-    descripcion: "Antioxidantes · Calcio · Hierro · Antiinflamatorio",
-    imagen: "img/sesamo-negro.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semilla de Sésamo Integral x 500 g",
-    precio: 2000,
-    descripcion: "Fibra · Calcio · Proteínas · Natural",
-    imagen: "img/sesamo-integral.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semillas de Lino x 500 g",
-    precio: 2100,
-    descripcion: "Omega 3 · Fibra · Digestión · Antiinflamatorio",
-    imagen: "img/semillas-lino.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semilla de Chía Premium x 500 g",
-    precio: 5000,
-    descripcion: "Omega 3 · Proteínas · Fibra · Saciedad",
-    imagen: "img/chia-premium.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Mix de Semillas x 500 g",
-    precio: 3000,
-    descripcion: "Omega 3 · Fibra · Vitaminas · Natural",
-    imagen: "img/mix-semillas.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semillas de Zapallo x 500 g",
-    precio: 12000,
-    descripcion: "Zinc · Magnesio · Proteínas · Antioxidantes",
-    imagen: "img/semillas-zapallo.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semilla de Amaranto x 500 g",
-    precio: 5000,
-    descripcion: "Proteínas · Sin TACC · Hierro · Calcio",
-    imagen: "img/amaranto.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semillas de Amapola x 500 g",
-    precio: 11000,
-    descripcion: "Calcio · Fibra · Grasas saludables · Antioxidantes",
-    imagen: "img/semillas-amapola.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semilla de Psyllium x 500 g",
-    precio: 11000,
-    descripcion: "Fibra · Digestión · Saciedad · Sin TACC",
-    imagen: "img/psyllium.jpg",
-    categoria: "semillas"
-  },
-  {
-    nombre: "Semilla de Quinoa Boliviana x 500 g",
-    precio: 4000,
-    descripcion: "Proteínas · Sin TACC · Hierro · Aminoácidos esenciales",
-    imagen: "img/quinoa-boliviana.jpg",
-    categoria: "semillas"
-  },
-
-  // ===== REPOSTERÍA =====
-  {
-    nombre: "Fécula de Maíz x 1 kg",
-    precio: 4700,
-    descripcion: "Sin TACC · Espesante · Liviana · Apta repostería",
-    imagen: "img/fecula-maiz.jpg",
-    categoria: "reposteria"
-  },
-  {
-    nombre: "Fécula de Mandioca x 1 kg",
-    precio: 4500,
-    descripcion: "Sin TACC · Espesante · Digestiva · Apta repostería",
-    imagen: "img/fecula-mandioca.jpg",
-    categoria: "reposteria"
-  },
-  {
-    nombre: "Azúcar Mascabo x 500 g",
-    precio: 1700,
-    descripcion: "Natural · Sin refinar · Hierro · Bajo procesamiento",
-    imagen: "img/azucar-mascabo.jpg",
-    categoria: "reposteria"
-  },
-  {
-    nombre: "Azúcar Impalpable x 500 g",
-    precio: 2900,
-    descripcion: "Fina · Apta repostería · Decoración · Rellenos",
-    imagen: "img/azucar-impalpable.jpg",
-    categoria: "reposteria"
-  },
-  {
-    nombre: "Polvo para Hornear x 250 g",
-    precio: 3200,
-    descripcion: "Leudante · Apta repostería · Sin tacc · Esponjado natural",
-    imagen: "img/polvo-hornear.jpg",
-    categoria: "reposteria"
-  },
-  {
-    nombre: "Coco Rallado x 500 g",
-    precio: 7500,
-    descripcion: "Natural · Fibra · Energía · Apta repostería",
-    imagen: "img/coco-rallado.jpg",
-    categoria: "reposteria"
-  },
-  {
-    nombre: "Leche de Coco en Polvo x 500 g",
-    precio: 18000,
-    descripcion: "Sin lactosa · Cremosa · Energía · Apta repostería",
-    imagen: "img/leche-coco-polvo.jpg",
-    categoria: "reposteria"
-  },
-  {
-    nombre: "Cacao Amargo x 500 g",
-    precio: 10000,
-    descripcion: "Antioxidantes · Magnesio · Sin azúcar · Apta repostería",
-    imagen: "img/cacao-amargo.jpg",
-    categoria: "reposteria"
-  },
-  {
-    nombre: "Azúcar de Coco x 500 g",
-    precio: 8000,
-    descripcion: "Bajo índice glucémico · Natural · Sin refinar · Energía",
-    imagen: "img/azucar-coco.jpg",
-    categoria: "reposteria"
-  },
-
-  // ===== HARINAS =====
-  {
-    nombre: "Harina de Coco x 1 kg",
-    precio: 8000,
-    descripcion: "Sin TACC · Fibra · Bajo índice glucémico · Apta repostería",
-    imagen: "img/harina-coco.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina de Maní x 1 kg",
-    precio: 4000,
-    descripcion: "Proteínas · Sin TACC · Grasas saludables · Apta repostería",
-    imagen: "img/harina-mani.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina de Centeno x 500 g",
-    precio: 3000,
-    descripcion: "Fibra · Hierro · Digestión · Energía sostenida",
-    imagen: "img/harina-centeno.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina de Almendras sin Piel x 1 kg",
-    precio: 7000,
-    descripcion: "Sin TACC · Proteínas · Grasas buenas · Apta repostería",
-    imagen: "img/harina-almendras-sin-piel.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina de Almendras con Piel x 1 kg",
-    precio: 5500,
-    descripcion: "Sin TACC · Fibra · Proteínas · Apta repostería",
-    imagen: "img/harina-almendras-con-piel.jpg",
-    categoria: "harinas",
-    destacado: true
-  },
-  {
-    nombre: "Harina de Algarroba Artesanal x 500 g",
-    precio: 6500,
-    descripcion: "Sin TACC · Antioxidantes · Fibra · Bajo índice glucémico",
-    imagen: "img/harina-algarroba.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina a base de Pistacho x 500 g",
-    precio: 13000,
-    descripcion: "Sin TACC · Proteínas · Grasas buenas · Apta repostería",
-    imagen: "img/harina-pistacho.jpg",
-    categoria: "harinas",
-    destacado: true
-  },
-  {
-    nombre: "Harina de Arroz x 1 kg",
-    precio: 2000,
-    descripcion: "Sin TACC · Digestiva · Liviana · Apta repostería",
-    imagen: "img/harina-arroz.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina de Avena x 1 kg",
-    precio: 3000,
-    descripcion: "Fibra · Proteínas · Energía · Saciedad",
-    imagen: "img/harina-avena.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina de Trigo Sarraceno x 1 kg",
-    precio: 7800,
-    descripcion: "Sin TACC · Proteínas · Hierro · Antioxidantes",
-    imagen: "img/harina-trigo-sarraceno.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina de Maíz Abatí x 1 kg",
-    precio: 2300,
-    descripcion: "Sin TACC · Energía · Fibra · Natural",
-    imagen: "img/harina-maiz-abati.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Harina de Garbanzo x 1 kg",
-    precio: 2300,
-    descripcion: "Sin TACC · Proteínas · Hierro · Fibra",
-    imagen: "img/harina-garbanzo.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Avena Instantánea x 1 kg",
-    precio: 2700,
-    descripcion: "Fibra · Energía sostenida · Saciedad · Bajo índice glucémico",
-    imagen: "img/avena-instantanea-1kg.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Avena Tradicional x 1 kg",
-    precio: 2700,
-    descripcion: "Fibra · Energía · Saciedad · Natural",
-    imagen: "img/avena-tradicional.jpg",
-    categoria: "harinas"
-  },
-  {
-    nombre: "Avena Gruesa x 1 kg",
-    precio: 2700,
-    descripcion: "Fibra · Energía sostenida · Digestión · Natural",
-    imagen: "img/avena-gruesa.jpg",
-    categoria: "harinas"
-  },
-
-  // ===== GRANOLAS =====
-  {
-    nombre: "Granola Clásica con Miel y Pasas x 1 kg",
-    precio: 8000,
-    descripcion: "Energía · Fibra · Antioxidantes · Sin conservantes",
-    imagen: "img/granola-miel-pasas.jpg",
-    categoria: "granolas"
-  },
-  {
-    nombre: "Granola Clásica con Miel sin Pasas x 1 kg",
-    precio: 8000,
-    descripcion: "Energía · Fibra · Natural · Sin conservantes",
-    imagen: "img/granola-miel-sin-pasas.jpg",
-    categoria: "granolas"
-  },
-  {
-    nombre: "Granola con Pasas Sátvika x 1 kg",
-    precio: 8500,
-    descripcion: "Natural · Energía · Fibra · Ingredientes seleccionados",
-    imagen: "img/granola-pasas-satvika.jpg",
-    categoria: "granolas"
-  },
-  {
-    nombre: "Granola con Pasta de Maní Sátvika x 1 kg",
-    precio: 8500,
-    descripcion: "Proteínas · Energía · Fibra · Sin conservantes",
-    imagen: "img/granola-pasta-mani-satvika.jpg",
-    categoria: "granolas"
-  },
-  {
-    nombre: "Granola Tutti Grani Premium x 1 kg",
-    precio: 10000,
-    descripcion: "Energía · Fibra · Ingredientes premium · Sin conservantes",
-    imagen: "img/granola-tutti-grani-premium.jpg",
-    categoria: "granolas"
-  },
-  {
-    nombre: "Granola Tutti Grani Proteica x 1 kg",
-    precio: 10000,
-    descripcion: "Proteínas · Energía · Fibra · Rendimiento",
-    imagen: "img/granola-tutti-grani-proteica.jpg",
-    categoria: "granolas"
-  },
-  {
-    nombre: "Granola Tutti Grani Cacao y Coco x 1 kg",
-    precio: 10000,
-    descripcion: "Antioxidantes · Energía · Fibra · Sin conservantes",
-    imagen: "img/granola-tutti-grani-cacao-coco.jpg",
-    categoria: "granolas"
-  },
-
-  // ===== SUPLEMENTOS =====
-  {
-    nombre: "Vitamina C en Polvo (Ácido Ascórbico) x 300 g",
-    precio: 8400,
-    descripcion: "Inmunidad · Antioxidante · Colágeno · Absorción de hierro",
-    imagen: "img/vitamina-c.jpg",
-    categoria: "suplementos"
-  },
-  {
-    nombre: "Cloruro de Magnesio blister x 10 unid de 33g cada uno",
-    precio: 5000,
-    descripcion: "Músculos · Sistema nervioso · Energía · Huesos",
-    imagen: "img/cloruro-magnesio.jpg",
-    categoria: "suplementos"
-  },
-  {
-    nombre: "Citrato de Calcio x 200 g",
-    precio: 5600,
-    descripcion: "Huesos · Dientes · Alta absorción · Sin lactosa",
-    imagen: "img/citrato-calcio.jpg",
-    categoria: "suplementos"
-  },
-  {
-    nombre: "Creatina Monohidrato x 300 g",
-    precio: 15000,
-    descripcion: "Fuerza · Rendimiento · Masa muscular · Recuperación",
-    imagen: "img/creatina-300.jpg",
-    categoria: "suplementos",
-    destacado: true
-  },
-  {
-    nombre: "Colágeno x 300 g",
-    precio: 18000,
-    descripcion: "Articulaciones · Piel · Pelo · Uñas · Recuperación",
-    imagen: "img/colageno-300.jpg",
-    categoria: "suplementos"
-  },
-  {
-    nombre: "Citrato de Magnesio x 300 g",
-    precio: 11000,
-    descripcion: "Alta absorción · Músculos · Sueño · Sistema nervioso",
-    imagen: "img/citrato-magnesio.jpg",
-    categoria: "suplementos"
-  },
-  {
-    nombre: "Citrato de Potasio x 300 g",
-    precio: 11000,
-    descripcion: "Presión arterial · Músculos · Hidratación · Corazón",
-    imagen: "img/citrato-potasio.jpg",
-    categoria: "suplementos"
-  },
-  {
-    nombre: "Maca Micropulverizada x 500 g",
-    precio: 3000,
-    descripcion: "Energía · Vitalidad · Hormonal · Resistencia",
-    imagen: "img/maca.jpg",
-    categoria: "suplementos"
-  },
-  {
-    nombre: "Maca Negra Micropulverizada x 500 g",
-    precio: 3500,
-    descripcion: "Energía · Fertilidad · Rendimiento · Antioxidantes",
-    imagen: "img/maca-negra.jpg",
-    categoria: "suplementos"
-  },
-
-  // ===== OTROS =====
-  {
-    nombre: "Pasta de Maní x 1 kg",
-    precio: 7500,
-    descripcion: "Proteínas · Grasas saludables · Energía · Sin aditivos",
-    imagen: "img/pasta-mani.jpg",
-    categoria: "otros",
-    destacado: true
-  },
-  {
-    nombre: "Flor de Jamaica-Hibiscus x 350 g",
-    precio: 12500,
-    descripcion: "Antioxidantes · Diurética · Vitamina C · Antiinflamatoria",
-    imagen: "img/flor-hibiscus.jpg",
-    categoria: "otros",
-    destacado: true
-  },
-  {
-    nombre: "Manzanilla x 300 g",
-    precio: 16000,
-    descripcion: "Digestiva · Relajante · Antiinflamatoria · Natural",
-    imagen: "img/manzanilla.jpg",
-    categoria: "otros"
-  },
-  {
-    nombre: "Clavo de Olor x 200 g",
-    precio: 12000,
-    descripcion: "Antioxidante · Digestivo · Antibacterial · Aromático",
-    imagen: "img/clavo-de-olor.jpg",
-    categoria: "otros"
-  },
-  {
-    nombre: "Gelatina Sin Sabor x 300 g",
-    precio: 12000,
-    descripcion: "Colágeno · Articulaciones · Proteínas · Bajo en calorías",
-    imagen: "img/gelatina-sin-sabor.jpg",
-    categoria: "otros",
-    destacado: true
-  },
-  {
-    nombre: "Avena Instantánea x 2 kg",
-    precio: 5000,
-    descripcion: "Fibra · Energía sostenida · Saciedad · Bajo índice glucémico",
-    imagen: "img/avena-instantanea-1kg.jpg",
-    categoria: "otros",
-    destacado: true
-  },
-
-  {
-    nombre: "Jugo de Arándanos con chía x 1,5 Lt",
-    precio: 0,
-    descripcion: "Antioxidantes · Vitamina C · Natural · Sin conservantes",
-    imagen: "img/jugo-arandanos-chia.jpg",
-    categoria: "otros"
-  },
-  {
-    nombre: "Jugo de Arándanos con Stevia x 1,5 Lt",
-    precio: 0,
-    descripcion: "Antioxidantes · Vitamina C · Sin azúcar · Con stevia",
-    imagen: "img/jugo-arandanos-stevia.jpg",
-    categoria: "otros"
-  },
-
-  {
-    nombre: "Yogurt Natural sin azúcar x 250 g x 2",
-    precio: 4500,
-    descripcion: "Probióticos · Calcio · Natural · Sin conservantes",
-    imagen: "img/yogurt-natural-sin-azucar.jpg",
-    categoria: "otros"
-  },
-  {
-    nombre: "Yogurt Natural Endulzado x 250 g x 2",
-    precio: 4500,
-    descripcion: "Probióticos · Calcio · Natural · Suavemente endulzado",
-    imagen: "img/yogurt-natural-endulzado.jpg",
-    categoria: "otros"
-  },
-  
-
-// ===== CAFÉS =====
-  {
-    nombre: "Café Brasil Cabrales x 250 g",
-    precio: 24000,
-    descripcion: "Café de origen Brasil, tostado y molido · 250 g",
-    imagen: "img/cafe-brasil-cabrales.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Café Perú Cabrales x 250 g",
-    precio: 24000,
-    descripcion: "Café de origen Perú, tostado y molido · 250 g",
-    imagen: "img/cafe-peru-cabrales.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Café Colombia Cabrales x 250 g",
-    precio: 24000,
-    descripcion: "Café de origen Colombia, tostado y molido · 250 g",
-    imagen: "img/cafe-colombia-cabrales.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Supercabrales x 250 g",
-    precio: 17500,
-    descripcion: "El clásico Supercabrales · 250 g",
-    imagen: "img/supercabrales.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Descafeinado Cabrales x 250 g",
-    precio: 22000,
-    descripcion: "Café descafeinado Cabrales · 250 g",
-    imagen: "img/descafeinado-cabrales.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Café de Mistol x 200 g",
-    precio: 7500,
-    descripcion: "Café artesanal de mistol · 200 g",
-    imagen: "img/cafe-mistol.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Café de Algarroba x 200 g",
-    precio: 7500,
-    descripcion: "Café artesanal de algarroba · 200 g",
-    imagen: "img/cafe-algarroba.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Café Italiano Cabrales x 250 g",
-    precio: 24000,
-    descripcion: "Café estilo italiano Cabrales · 250 g",
-    imagen: "img/cafe-italiano-cabrales.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Café Prestige Cabrales x 250 g",
-    precio: 22000,
-    descripcion: "Café Prestige selección especial Cabrales · 250 g",
-    imagen: "img/cafe-prestige-cabrales.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Yerba Tucangua x 500 g",
-    precio: 2700,
-    descripcion: "Natural · Digestiva · Aromática · Artesanal",
-    imagen: "img/yerba-tucangua.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Yerba Kalena x 500 g",
-    precio: 7200,
-    descripcion: "Natural · Relajante · Aromática · Artesanal",
-    imagen: "img/yerba-kalena.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Té Rojo x 250 g",
-    precio: 1200,
-    descripcion: "Digestivo · Antioxidantes · Depurativo · Natural",
-    imagen: "img/te-rojo.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Té Verde x 250 g",
-    precio: 1200,
-    descripcion: "Antioxidantes · Energía · Metabolismo · Natural",
-    imagen: "img/te-verde.jpg",
-    categoria: "cafes"
-  },
-  {
-    nombre: "Té Negro x 250 g",
-    precio: 1200,
-    descripcion: "Energía · Antioxidantes · Digestivo · Natural",
-    imagen: "img/te-negro.jpg",
-    categoria: "cafes"
-  },
-
-
-
-
-
-  // ===== CONGELADOS =====
-  {
-    nombre: "Mix de Frutos Rojos Congelados x 500 g",
-    precio: 11000,
-    descripcion: "Antioxidantes · Vitaminas · Natural",
-    imagen: "img/mix-frutos-rojos.jpg",
-    categoria: "congelados",
-    destacado: true
-  },
-
-// ===== ENDULZANTES & NATURALES =====
-  {
-    nombre: "Miel",
-    descripcion: "Natural · Sin aditivos · Energía · Antioxidantes",
-    imagen: "img/miel.jpg",
-    categoria: "endulzantes",
-    variantes: [
-      { etiqueta: "250 g", precio: 3500 },
-      { etiqueta: "500 g", precio: 6000 },
-      { etiqueta: "1 kg",  precio: 11000 }   
-    ]
-  },
-  {
-    nombre: "Aceite de Coco Neutro",
-    descripcion: "Sin sabor · Cocción saludable · Grasas buenas · Natural",
-    imagen: "img/aceite-coco-neutro.jpg",
-    categoria: "endulzantes",
-    variantes: [
-      { etiqueta: "200 g", precio: 7000 },
-      { etiqueta: "360 g", precio: 9300 }
-    ]
-  },
-  {
-    nombre: "Aceite de Coco Virgen",
-    descripcion: "Extra virgen · Aroma natural · Grasas saludables · Sin refinar",
-    imagen: "img/aceite-coco-virgen.jpg",
-    categoria: "endulzantes",
-    variantes: [
-      { etiqueta: "200 g", precio: 10000 },
-      { etiqueta: "360 g", precio: 16500 }
-    ]
-  },
-
-  {
-    nombre: "Aceite de Chía x 250 g",
-    precio: 0,
-    descripcion: "Omega 3 · Antioxidantes · Piel · Grasas saludables",
-    imagen: "img/aceite-chia.jpg",
-    categoria: "endulzantes"
-  },
-  {
-    nombre: "Aceite de Lino x 250 g",
-    precio: 0,
-    descripcion: "Omega 3 · Antiinflamatorio · Corazón · Grasas saludables",
-    imagen: "img/aceite-lino.jpg",
-    categoria: "endulzantes"
-  },
-  {
-    nombre: "Aceite de Sésamo x 250 g",
-    precio: 0,
-    descripcion: "Antioxidantes · Calcio · Grasas saludables · Natural",
-    imagen: "img/aceite-sesamo.jpg",
-    categoria: "endulzantes"
-  },
-  {
-    nombre: "Aceite de Palta x 250 g",
-    precio: 0,
-    descripcion: "Vitamina E · Grasas saludables · Corazón · Natural",
-    imagen: "img/aceite-palta.jpg",
-    categoria: "endulzantes"
-  },
-  {
-  nombre: "Aceite de Oliva Extra Virgen 1 Lt",
-  precio: 15000,
-  descripcion: "Primera Prensada · Natural · Sin Aditivos",
-  imagen: "img/aceite-oliva-extra-virgen.jpg",
-  categoria: "endulzantes",
-  destacado: true
-},
-
-  // ===== CHOCOLATES =====
-  {
-    nombre: "Almendras con Chocolate x 100 g",
-    precio: 4500,
-    descripcion: "Almendras · Chocolate · Energía · Antioxidantes",
-    imagen: "img/almendras-chocolate.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Arándanos con Chocolate x 100 g",
-    precio: 5500,
-    descripcion: "Arándanos · Chocolate · Antioxidantes · Vitaminas",
-    imagen: "img/arandanos-chocolate.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Café con Chocolate x 100 g",
-    precio: 5000,
-    descripcion: "Café · Chocolate · Energía · Antioxidantes",
-    imagen: "img/cafe-chocolate.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Cereal con Chocolate x 100 g",
-    precio: 4500,
-    descripcion: "Cereal · Chocolate · Energía · Fibra",
-    imagen: "img/cereal-chocolate.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Maní con Chocolate x 100 g",
-    precio: 3000,
-    descripcion: "Maní · Chocolate · Proteínas · Energía",
-    imagen: "img/mani-chocolate.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Naranja con Chocolate x 100 g",
-    precio: 5500,
-    descripcion: "Naranja · Chocolate · Vitamina C · Antioxidantes",
-    imagen: "img/naranja-chocolate.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Pasas de Uva con Chocolate x 100 g",
-    precio: 3500,
-    descripcion: "Pasas · Chocolate · Hierro · Energía",
-    imagen: "img/pasas-chocolate.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Chocolate 70% x 100 g",
-    precio: 6000,
-    descripcion: "Cacao intenso · Antioxidantes · Bajo azúcar · Artesanal",
-    imagen: "img/chocolate-70.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Chocolate 100% x 100 g",
-    precio: 7700,
-    descripcion: "Puro cacao · Sin azúcar · Antioxidantes · Intenso",
-    imagen: "img/chocolate-100.jpg",
-    categoria: "chocolates"
-  },
-   {
-    nombre: "Medallones de chocolate semiamargo x 100 g",
-    precio: 2400,
-    descripcion: "Puro cacao · Sin azúcar · Antioxidantes · Intenso",
-    imagen: "img/medallon-de-chocolate.jpg",
-    categoria: "chocolates"
-  },
-  {
-    nombre: "Chips de Chocolate Semiamargo x 250 g",
-    precio: 5000,
-    descripcion: "Repostería · Antioxidantes · Cacao intenso · Sin conservantes",
-    imagen: "img/chips-chocolate-semiamargo.jpg",
-    categoria: "chocolates"
-  },
-
-
-];
+async function cargarProductos() {
+  try {
+    const resp = await fetch(
+      `${SUPABASE_URL}/rest/v1/productos?select=*&order=nombre`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+    if (!resp.ok) throw new Error("Error al cargar productos: " + resp.status);
+    const data = await resp.json();
+    // Normaliza el precio (viene como string/numeric desde Postgres) a number
+    return data.map(p => ({ ...p, precio: Number(p.precio) }));
+  } catch (err) {
+    console.error("No se pudieron cargar los productos desde Supabase:", err);
+    return [];
+  }
+}
 
 /* =====================================
    RENDERIZADO CATEGORÍAS
@@ -1181,67 +381,76 @@ function crearCarrusel(idContenedor, listaProductos) {
   wrapper.insertAdjacentElement("afterend", dotsContainer);
 }
 
-const destacados = productos.filter(p => p.destacado === true);
-crearCarrusel("productos-destacados", destacados);
+function renderizarProductoCategoria(producto, contenedorCategoria) {
+  // Card con variantes
+  if (producto.variantes) {
+    const variantesHTML = producto.variantes.map(v => `
+      <div class="variante-fila">
+        <span class="variante-etiqueta">${v.etiqueta}</span>
+        <span class="variante-precio">$${v.precio}</span>
+        <button class="btn-variante"
+          data-nombre="${producto.nombre} x ${v.etiqueta}"
+          data-precio="${v.precio}"
+          onclick="agregarAlCarrito(this)">
+          Agregar
+        </button>
+      </div>
+    `).join("");
 
-if (typeof categoriaActual !== "undefined") {
-  const contenedorCategoria = document.getElementById("productos-categoria");
-  if (contenedorCategoria) {
-    productos
-      .filter(p => p.categoria === categoriaActual)
-      .forEach(producto => {
+    contenedorCategoria.innerHTML += `
+      <article class="producto card-foto" style="background-image:url('${producto.imagen}');">
+        <div class="card-contenido">
+          <h3>${producto.nombre}</h3>
+          <p class="card-desc">${producto.descripcion}</p>
+          <div class="variantes-lista">
+            ${variantesHTML}
+          </div>
+        </div>
+      </article>
+    `;
 
-        // Card con variantes
-        if (producto.variantes) {
-          const variantesHTML = producto.variantes.map(v => `
-            <div class="variante-fila">
-              <span class="variante-etiqueta">${v.etiqueta}</span>
-              <span class="variante-precio">$${v.precio}</span>
-              <button class="btn-variante"
-                data-nombre="${producto.nombre} x ${v.etiqueta}"
-                data-precio="${v.precio}"
-                onclick="agregarAlCarrito(this)">
-                Agregar
-              </button>
-            </div>
-          `).join("");
-
-          contenedorCategoria.innerHTML += `
-            <article class="producto card-foto" style="background-image:url('${producto.imagen}');">
-              <div class="card-contenido">
-                <h3>${producto.nombre}</h3>
-                <p class="card-desc">${producto.descripcion}</p>
-                <div class="variantes-lista">
-                  ${variantesHTML}
-                </div>
-              </div>
-            </article>
-          `;
-
-        // Card normal (sin variantes)
-        } else {
-          contenedorCategoria.innerHTML += `
-            <article class="producto card-foto" style="background-image:url('${producto.imagen}');">
-              
-              <div class="card-contenido">
-                <h3>${producto.nombre}</h3>
-                <p class="precio">$${producto.precio}</p>
-                <p class="card-desc">${producto.descripcion}</p>
-                ${producto.contenido ? `<p class="card-contiene"><strong>Contiene:</strong> ${producto.contenido}</p>` : ""}
-                <button class="btn-producto"
-                  data-nombre="${producto.nombre}"
-                  data-precio="${producto.precio}"
-                  onclick="agregarAlCarrito(this)">
-                  Agregar al carrito
-                </button>
-              </div>
-            </article>
-          `;
-        }
-
-      });
+  // Card normal (sin variantes)
+  } else {
+    contenedorCategoria.innerHTML += `
+      <article class="producto card-foto" style="background-image:url('${producto.imagen}');">
+        
+        <div class="card-contenido">
+          <h3>${producto.nombre}</h3>
+          <p class="precio">$${producto.precio}</p>
+          <p class="card-desc">${producto.descripcion}</p>
+          ${producto.contenido ? `<p class="card-contiene"><strong>Contiene:</strong> ${producto.contenido}</p>` : ""}
+          <button class="btn-producto"
+            data-nombre="${producto.nombre}"
+            data-precio="${producto.precio}"
+            onclick="agregarAlCarrito(this)">
+            Agregar al carrito
+          </button>
+        </div>
+      </article>
+    `;
   }
 }
+
+async function inicializarProductos() {
+  productos = await cargarProductos();
+
+  const destacados = productos.filter(p => p.destacado === true);
+  crearCarrusel("productos-destacados", destacados);
+
+  if (typeof categoriaActual !== "undefined") {
+    const contenedorCategoria = document.getElementById("productos-categoria");
+    if (contenedorCategoria) {
+      productos
+        .filter(p => p.categoria === categoriaActual)
+        .forEach(producto => renderizarProductoCategoria(producto, contenedorCategoria));
+    }
+  }
+
+
+  if (typeof aplicarBusquedaDesdeURL === "function") aplicarBusquedaDesdeURL();
+}
+
+inicializarProductos();
 
 /* =====================================
    CARRITO
@@ -1538,7 +747,8 @@ function eliminarProducto(nombre) {
    INICIAR
    ===================================== */
 cargarCarrito();
-aplicarBusquedaDesdeURL();
+// aplicarBusquedaDesdeURL() se llama despues de que los productos terminan de cargar
+// (ver inicializarProductos, mas arriba), para no buscar sobre un array vacio.
 
 /* =====================================
    BUSCADOR
@@ -1562,8 +772,8 @@ function buscarProductos(texto) {
   }
 
   const encontrados = productos.filter(p => {
-    const enNombre = normalizar(p.nombre).includes(query);
-    const enDescripcion = normalizar(p.descripcion).includes(query);
+    const enNombre = normalizar(p.nombre || "").includes(query);
+    const enDescripcion = normalizar(p.descripcion || "").includes(query);
     const enContenido = p.contenido ? normalizar(p.contenido).includes(query) : false;
     return enNombre || enDescripcion || enContenido;
   });
