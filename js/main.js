@@ -110,12 +110,14 @@ const categorias = [
   { nombre: "Harinas", url: "Harinas.html", icono: "ti-building-store", imagen: "img/harina-avena.jpg" },
   { nombre: "Repostería", url: "Reposteria.html", icono: "ti-cake", imagen: "img/coco-rallado.jpg" },
   { nombre: "Suplementos", url: "suplementos.html", icono: "ti-bolt", imagen: "img/vitamina-c.jpg" },
-  { nombre: "Granolas", url: "granolas.html", icono: "ti-sun", imagen: "img/granola-miel-pasas.jpg" },
+  { nombre: "Granolas y Galletas", url: "granolas.html", icono: "ti-sun", imagen: "img/granola-miel-pasas.jpg" },
   { nombre: "Congelados", url: "congelados.html", icono: "ti-snowflake", imagen: "img/mix-frutos-rojos.jpg" },
   { nombre: "Otros", url: "el-cajon-sorpresa.html", icono: "ti-gift", imagen: "img/pasta-mani.jpg" },
   { nombre: "Cafés", url: "cafes.html", icono: "ti-coffee", imagen: "img/cafe-brasil-cabrales.jpg" },
   { nombre: "Endulzantes", url: "endulzantes.html", icono: "ti-bottle", imagen: "img/miel.jpg" },
   { nombre: "Chocolates", url: "chocolates.html", icono: "ti-candy", imagen: "img/chocolate-70.jpg" },
+  { nombre: "Legumbres", url: "legumbres.html", icono: "ti-soup" },
+  { nombre: "Cereales", url: "cereales.html", icono: "ti-bread" },
   { nombre: "Novedades", url: "productos-nuevos.html", icono: "ti-sparkles" },
 ];
 
