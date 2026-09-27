@@ -748,12 +748,42 @@ document.addEventListener("click", function(e) {
 
   const mensaje = encodeURIComponent(textoPedido);
 
-  // El pedido se envía a los dos números del local
-  const telefonosPedido = ["5493515426971", "5493516718415"];
-  telefonosPedido.forEach(telefono => {
-    window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
-  });
+  const numeroPrincipal = "5493515426971";
+  const numeroSecundario = "5493516718415";
+  const linkPrincipal = `https://wa.me/${numeroPrincipal}?text=${mensaje}`;
+  const linkSecundario = `https://wa.me/${numeroSecundario}?text=${mensaje}`;
+
+  window.open(linkPrincipal, "_blank");
+  window.open(linkSecundario, "_blank");
+
+  // Muchos celulares (sobre todo iPhone) bloquean la segunda ventana de
+  // WhatsApp por tratarla como pop-up. Por eso siempre dejamos este aviso
+  // con un link real para que, con un toque más, el pedido llegue seguro
+  // también al segundo número.
+  mostrarAvisoWhatsAppSecundario(linkSecundario);
 });
+
+function mostrarAvisoWhatsAppSecundario(url) {
+  const anterior = document.getElementById("aviso-whatsapp-secundario");
+  if (anterior) anterior.remove();
+
+  const aviso = document.createElement("div");
+  aviso.id = "aviso-whatsapp-secundario";
+  aviso.className = "aviso-whatsapp-secundario";
+  aviso.innerHTML = `
+    <span>📲 Si no se abrió el 2do chat de WhatsApp, tocá acá para avisarnos también:</span>
+    <a href="${url}" target="_blank" rel="noopener">Enviar pedido</a>
+    <button type="button" aria-label="Cerrar">✕</button>
+  `;
+  document.body.appendChild(aviso);
+
+  aviso.querySelector("button").addEventListener("click", () => aviso.remove());
+
+  // Se oculta solo pasado un rato si no se usa
+  setTimeout(() => {
+    if (aviso.parentElement) aviso.remove();
+  }, 30000);
+}
 
 /* =====================================
    CARRUSEL INSTAGRAM
