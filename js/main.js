@@ -116,8 +116,8 @@ const categorias = [
   { nombre: "Cafés", url: "cafes.html", icono: "ti-coffee", imagen: "img/cafe-brasil-cabrales.jpg" },
   { nombre: "Endulzantes", url: "endulzantes.html", icono: "ti-bottle", imagen: "img/miel.jpg" },
   { nombre: "Chocolates", url: "chocolates.html", icono: "ti-candy", imagen: "img/chocolate-70.jpg" },
-  { nombre: "Legumbres", url: "legumbres.html", icono: "ti-soup" },
-  { nombre: "Cereales", url: "cereales.html", icono: "ti-bread" },
+  { nombre: "Legumbres", url: "legumbres.html", icono: "ti-soup", imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Mix_of_13_beans_and_lentils.jpg/250px-Mix_of_13_beans_and_lentils.jpg" },
+  { nombre: "Cereales", url: "cereales.html", icono: "ti-bread", imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Cereal.jpg/250px-Cereal.jpg" },
   { nombre: "Novedades", url: "productos-nuevos.html", icono: "ti-sparkles" },
 ];
 
@@ -497,6 +497,20 @@ function cargarScriptJsPDF() {
   });
 }
 
+function cargarImagenComoDataURL(url) {
+  return fetch(url)
+    .then(resp => {
+      if (!resp.ok) throw new Error("No se pudo obtener la imagen: " + url);
+      return resp.blob();
+    })
+    .then(blob => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error("No se pudo leer la imagen"));
+      reader.readAsDataURL(blob);
+    }));
+}
+
 async function descargarListaPrecios(boton) {
   const textoOriginal = boton ? boton.innerHTML : "";
   if (boton) {
@@ -513,18 +527,48 @@ async function descargarListaPrecios(boton) {
       return;
     }
 
+    let logoDataUrl = null;
+    try {
+      logoDataUrl = await cargarImagenComoDataURL("img/logo-redondo.jpg");
+    } catch (err) {
+      console.warn("No se pudo cargar el logo para el PDF:", err);
+    }
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: "pt", format: "a4" });
     const margenIzq = 40;
     const anchoPagina = doc.internal.pageSize.getWidth();
     const altoPagina = doc.internal.pageSize.getHeight();
-    let y = 55;
+    let y = 40;
+
+    const anchoLogo = 46;
+    let xTexto = margenIzq;
+    if (logoDataUrl) {
+      doc.addImage(logoDataUrl, "JPEG", margenIzq, y, anchoLogo, anchoLogo);
+      xTexto = margenIzq + anchoLogo + 14;
+    }
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(20);
+    doc.setFontSize(18);
     doc.setTextColor(11, 117, 91);
-    doc.text("Sabores de la Tierra", margenIzq, y);
-    y += 22;
+    doc.text("Sabores de la Tierra", xTexto, y + 18);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(90, 90, 90);
+    doc.text("Instagram: @saboresdelatierradiet", xTexto, y + 33);
+
+    doc.setTextColor(11, 117, 91);
+    doc.textWithLink("www.saboresdelatierradiet.com.ar", xTexto, y + 46, {
+      url: "https://www.saboresdelatierradiet.com.ar"
+    });
+
+    y += anchoLogo + 14;
+
+    doc.setDrawColor(225, 225, 225);
+    doc.setLineWidth(1);
+    doc.line(margenIzq, y, anchoPagina - margenIzq, y);
+    y += 20;
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
@@ -703,7 +747,12 @@ document.addEventListener("click", function(e) {
   textoPedido += "Por favor, coordinemos el pago y el envío.";
 
   const mensaje = encodeURIComponent(textoPedido);
-  window.open(`https://wa.me/5493515426971?text=${mensaje}`, "_blank");
+
+  // El pedido se envía a los dos números del local
+  const telefonosPedido = ["5493515426971", "5493516718415"];
+  telefonosPedido.forEach(telefono => {
+    window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
+  });
 });
 
 /* =====================================
