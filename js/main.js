@@ -464,6 +464,144 @@ async function inicializarProductos() {
 inicializarProductos();
 
 /* =====================================
+   DESCARGA DE LISTA DE PRECIOS (PDF)
+   ===================================== */
+const NOMBRES_CATEGORIA_PDF = {
+  "semillas": "Semillas",
+  "frutos-secos": "Frutos Secos",
+  "harinas": "Harinas",
+  "reposteria": "Repostería",
+  "suplementos": "Suplementos",
+  "granolas": "Granolas y Galletas",
+  "congelados": "Congelados",
+  "otros": "Otros",
+  "cafes": "Cafés",
+  "endulzantes": "Endulzantes",
+  "chocolates": "Chocolates",
+  "legumbres": "Legumbres",
+  "cereales": "Cereales",
+  "productos-nuevos": "Novedades"
+};
+
+function cargarScriptJsPDF() {
+  return new Promise((resolve, reject) => {
+    if (window.jspdf) {
+      resolve();
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js";
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error("No se pudo cargar la librería de PDF"));
+    document.head.appendChild(script);
+  });
+}
+
+async function descargarListaPrecios(boton) {
+  const textoOriginal = boton ? boton.innerHTML : "";
+  if (boton) {
+    boton.disabled = true;
+    boton.textContent = "Generando...";
+  }
+
+  try {
+    await cargarScriptJsPDF();
+    const listaProductos = await cargarProductos();
+
+    if (!listaProductos.length) {
+      alert("No pudimos generar la lista de precios en este momento. Probá de nuevo en unos minutos.");
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: "pt", format: "a4" });
+    const margenIzq = 40;
+    const anchoPagina = doc.internal.pageSize.getWidth();
+    const altoPagina = doc.internal.pageSize.getHeight();
+    let y = 55;
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.setTextColor(11, 117, 91);
+    doc.text("Sabores de la Tierra", margenIzq, y);
+    y += 22;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.setTextColor(90, 90, 90);
+    const fecha = new Date().toLocaleDateString("es-AR", { day: "2-digit", month: "2-digit", year: "numeric" });
+    doc.text(`Lista de precios · actualizada al ${fecha}`, margenIzq, y);
+    y += 26;
+
+    // Agrupar productos por categoría
+    const porCategoria = {};
+    listaProductos.forEach(p => {
+      const cat = p.categoria || "otros";
+      if (!porCategoria[cat]) porCategoria[cat] = [];
+      porCategoria[cat].push(p);
+    });
+
+    const ordenCategorias = Object.keys(NOMBRES_CATEGORIA_PDF).filter(c => porCategoria[c] && porCategoria[c].length);
+    Object.keys(porCategoria).forEach(c => {
+      if (!ordenCategorias.includes(c)) ordenCategorias.push(c);
+    });
+
+    ordenCategorias.forEach(cat => {
+      const items = porCategoria[cat]
+        .slice()
+        .sort((a, b) => (a.nombre || "").localeCompare(b.nombre || "", "es"));
+      const tituloCategoria = NOMBRES_CATEGORIA_PDF[cat] || cat;
+
+      if (y > altoPagina - 90) {
+        doc.addPage();
+        y = 55;
+      }
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(13);
+      doc.setTextColor(11, 117, 91);
+      doc.text(tituloCategoria, margenIzq, y);
+      y += 6;
+
+      doc.setDrawColor(43, 189, 168);
+      doc.setLineWidth(1);
+      doc.line(margenIzq, y, anchoPagina - margenIzq, y);
+      y += 16;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10.5);
+      doc.setTextColor(45, 45, 45);
+
+      items.forEach(p => {
+        if (y > altoPagina - 55) {
+          doc.addPage();
+          y = 55;
+        }
+        const precioNumero = Number(p.precio);
+        const precioTexto = precioNumero > 0
+          ? `$${precioNumero.toLocaleString("es-AR")}`
+          : "Consultar";
+        doc.text(p.nombre || "", margenIzq, y);
+        doc.text(precioTexto, anchoPagina - margenIzq, y, { align: "right" });
+        y += 16;
+      });
+
+      y += 14;
+    });
+
+    doc.save("Lista-de-precios-Sabores-de-la-Tierra.pdf");
+  } catch (err) {
+    console.error("Error al generar la lista de precios en PDF:", err);
+    alert("Hubo un problema generando el PDF. Probá de nuevo en unos minutos.");
+  } finally {
+    if (boton) {
+      boton.disabled = false;
+      boton.innerHTML = textoOriginal || "📄 Descargar lista de precios";
+    }
+  }
+}
+
+/* =====================================
    CARRITO
    ===================================== */
 let carrito = [];
@@ -665,8 +803,13 @@ document.addEventListener("click", function(e) {
       }
     });
 
-    // Reinicializa los embeds de Instagram visibles
-    if (window.instgrm) window.instgrm.Embeds.process();
+    // Reinicializa los embeds de Instagram recién cuando el tamaño final
+    // de la tarjeta ya se aplicó (si no, Instagram mide el ancho a mitad
+    // de la animación y el video queda chico/cortado)
+    const demoraProceso = animado ? 520 : 50;
+    setTimeout(() => {
+      if (window.instgrm) window.instgrm.Embeds.process();
+    }, demoraProceso);
   }
 
   function pausarTodosLosVideos() {
@@ -927,6 +1070,11 @@ if (footerPrincipal) {
         <a href="https://www.instagram.com/saboresdelatierradiet/" target="_blank" class="footer-link">
           @saboresdelatierradiet
         </a>
+      </p>
+      <p>
+        <button type="button" class="btn-lista-precios" onclick="descargarListaPrecios(this)">
+          📄 Descargar lista de precios
+        </button>
       </p>
     </div>
 

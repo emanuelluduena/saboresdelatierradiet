@@ -153,6 +153,12 @@ nav a:hover {
 .hero h2 { margin-bottom: 10px; }
 .hero p { font-size: 18px; }
 
+.hero .btn-lista-precios {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  padding: 12px 26px;
+}
+
 /* ===================================== */
 /* SECCIÓN CATEGORÍAS */
 /* ===================================== */
@@ -486,6 +492,35 @@ footer a {
 }
 
 footer a:hover { text-decoration: underline; }
+
+.btn-lista-precios {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #fff;
+  color: #0b755b;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-lista-precios:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-lista-precios:disabled {
+  opacity: 0.7;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
 
 /* ===================================== */
 /* BOTÓN FLOTANTE WHATSAPP */
@@ -887,6 +922,21 @@ header {
   flex: 1;
   overflow: hidden;
   padding: 10px 0;
+}
+
+.insta-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4;
+}
+
+.insta-card > div,
+.insta-card iframe,
+.insta-card blockquote.instagram-media {
+  margin: 0 auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
 }
 
 .carrusel-btn {
