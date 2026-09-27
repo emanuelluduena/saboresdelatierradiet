@@ -105,17 +105,17 @@ function abrirWhatsApp() {
    CATEGORÍAS
    ===================================== */
 const categorias = [
-  { nombre: "Semillas", url: "semillas.html", icono: "ti-plant-2" },
-  { nombre: "Frutos Secos", url: "frutos-secos.html", icono: "ti-tools-kitchen-2" },
-  { nombre: "Harinas", url: "Harinas.html", icono: "ti-building-store" },
-  { nombre: "Repostería", url: "Reposteria.html", icono: "ti-cake" },
-  { nombre: "Suplementos", url: "suplementos.html", icono: "ti-bolt" },
-  { nombre: "Granolas", url: "granolas.html", icono: "ti-sun" },
-  { nombre: "Congelados", url: "congelados.html", icono: "ti-snowflake" },
-  { nombre: "Otros", url: "el-cajon-sorpresa.html", icono: "ti-gift" },
-  { nombre: "Cafés", url: "cafes.html", icono: "ti-coffee" },
-  { nombre: "Endulzantes", url: "endulzantes.html", icono: "ti-bottle" },
-  { nombre: "Chocolates", url: "chocolates.html", icono: "ti-candy" },
+  { nombre: "Semillas", url: "semillas.html", icono: "ti-plant-2", imagen: "img/mix-semillas.jpg" },
+  { nombre: "Frutos Secos", url: "frutos-secos.html", icono: "ti-tools-kitchen-2", imagen: "img/nueces.jpg" },
+  { nombre: "Harinas", url: "Harinas.html", icono: "ti-building-store", imagen: "img/harina-avena.jpg" },
+  { nombre: "Repostería", url: "Reposteria.html", icono: "ti-cake", imagen: "img/coco-rallado.jpg" },
+  { nombre: "Suplementos", url: "suplementos.html", icono: "ti-bolt", imagen: "img/vitamina-c.jpg" },
+  { nombre: "Granolas", url: "granolas.html", icono: "ti-sun", imagen: "img/granola-miel-pasas.jpg" },
+  { nombre: "Congelados", url: "congelados.html", icono: "ti-snowflake", imagen: "img/mix-frutos-rojos.jpg" },
+  { nombre: "Otros", url: "el-cajon-sorpresa.html", icono: "ti-gift", imagen: "img/pasta-mani.jpg" },
+  { nombre: "Cafés", url: "cafes.html", icono: "ti-coffee", imagen: "img/cafe-brasil-cabrales.jpg" },
+  { nombre: "Endulzantes", url: "endulzantes.html", icono: "ti-bottle", imagen: "img/miel.jpg" },
+  { nombre: "Chocolates", url: "chocolates.html", icono: "ti-candy", imagen: "img/chocolate-70.jpg" },
   { nombre: "Novedades", url: "productos-nuevos.html", icono: "ti-sparkles" },
 ];
 
@@ -155,10 +155,12 @@ const gridCategorias = document.querySelector(".categorias-grid");
 
 if (gridCategorias) {
   categorias.forEach(cat => {
+    const conFoto = cat.imagen ? "categoria-icono con-foto" : "categoria-icono";
+    const estiloFondo = cat.imagen ? `style="background-image:url('${cat.imagen}')"` : "";
     gridCategorias.innerHTML += `
       <a href="${cat.url}" class="categoria-card">
-        <div class="categoria-icono">
-          <i class="ti ${cat.icono}"></i>
+        <div class="${conFoto}" ${estiloFondo}>
+          ${cat.imagen ? "" : `<i class="ti ${cat.icono}"></i>`}
         </div>
         <span>${cat.nombre}</span>
       </a>

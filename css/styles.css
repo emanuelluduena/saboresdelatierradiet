@@ -1019,6 +1019,12 @@ header {
   color: white;
 }
 
+.categoria-icono.con-foto {
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #2BBDA8;
+}
+
 .categoria-card:hover .categoria-icono {
   background: #556b2f;
   transform: translateY(-4px);
