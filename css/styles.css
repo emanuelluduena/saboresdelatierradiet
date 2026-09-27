@@ -1004,14 +1004,15 @@ header {
 
 
 .categoria-icono {
-  width: 72px;
-  height: 72px;
-  border-radius: 16px;
+  width: 76px;
+  height: 76px;
+  border-radius: 18px;
   background: #2BBDA8;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .categoria-icono i {
@@ -1022,12 +1023,19 @@ header {
 .categoria-icono.con-foto {
   background-size: cover;
   background-position: center;
-  border: 2px solid #2BBDA8;
+}
+
+.categoria-icono.sin-foto {
+  background: linear-gradient(135deg, #2BBDA8, #F5A623);
 }
 
 .categoria-card:hover .categoria-icono {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 18px rgba(0,0,0,0.18);
+}
+
+.categoria-card:hover .categoria-icono:not(.con-foto):not(.sin-foto) {
   background: #556b2f;
-  transform: translateY(-4px);
 }
 
 /* ============================= */

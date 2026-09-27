@@ -155,7 +155,7 @@ const gridCategorias = document.querySelector(".categorias-grid");
 
 if (gridCategorias) {
   categorias.forEach(cat => {
-    const conFoto = cat.imagen ? "categoria-icono con-foto" : "categoria-icono";
+    const conFoto = cat.imagen ? "categoria-icono con-foto" : "categoria-icono sin-foto";
     const estiloFondo = cat.imagen ? `style="background-image:url('${cat.imagen}')"` : "";
     gridCategorias.innerHTML += `
       <a href="${cat.url}" class="categoria-card">
