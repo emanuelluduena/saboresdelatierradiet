@@ -1161,6 +1161,17 @@ header {
   background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0) 55%);
 }
 
+/* Producto sin foto todavía cargada: en vez de fondo blanco (que hace
+   invisible el texto blanco), un degradado prolijo de marca que llega
+   oscuro hasta arriba para que el nombre siempre se pueda leer */
+.producto.card-foto.sin-imagen {
+  background: linear-gradient(160deg, #0b755b 0%, #2BBDA8 100%);
+}
+
+.producto.card-foto.sin-imagen::before {
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%);
+}
+
 .producto.card-foto .card-contenido {
   position: relative;
   z-index: 2;

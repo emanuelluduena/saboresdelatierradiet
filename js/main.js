@@ -209,15 +209,18 @@ function crearCarrusel(idContenedor, listaProductos) {
   `;
 
   function crearCard(producto) {
+    const tieneImagenCarrusel = !!(producto.imagen && producto.imagen.trim() !== "");
     const card = document.createElement("article");
-    card.className = "producto card-foto carrusel-card";
+    card.className = tieneImagenCarrusel
+      ? "producto card-foto carrusel-card"
+      : "producto card-foto carrusel-card sin-imagen";
     card.style.cssText = `
       flex-shrink: 0;
       width: ${ANCHO_LATERAL}px;
       opacity: 0.6;
       transform: scale(0.9);
       box-sizing: border-box;
-      background-image: url('${producto.imagen}');
+      ${tieneImagenCarrusel ? `background-image: url('${producto.imagen}');` : ""}
       transition: width 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
     `;
     card.innerHTML = `
@@ -387,6 +390,10 @@ function crearCarrusel(idContenedor, listaProductos) {
 
 function renderizarProductoCategoria(producto, contenedorCategoria) {
   // Card con variantes
+  const tieneImagen = !!(producto.imagen && producto.imagen.trim() !== "");
+  const claseFoto = tieneImagen ? "producto card-foto" : "producto card-foto sin-imagen";
+  const estiloFoto = tieneImagen ? `style="background-image:url('${producto.imagen}');"` : "";
+
   if (producto.variantes) {
     const variantesHTML = producto.variantes.map(v => `
       <div class="variante-fila">
@@ -402,7 +409,7 @@ function renderizarProductoCategoria(producto, contenedorCategoria) {
     `).join("");
 
     contenedorCategoria.innerHTML += `
-      <article class="producto card-foto" style="background-image:url('${producto.imagen}');">
+      <article class="${claseFoto}" ${estiloFoto}>
         <div class="card-contenido">
           <h3>${producto.nombre}</h3>
           <p class="card-desc">${producto.descripcion}</p>
@@ -416,7 +423,7 @@ function renderizarProductoCategoria(producto, contenedorCategoria) {
   // Card normal (sin variantes)
   } else {
     contenedorCategoria.innerHTML += `
-      <article class="producto card-foto" style="background-image:url('${producto.imagen}');">
+      <article class="${claseFoto}" ${estiloFoto}>
         
         <div class="card-contenido">
           <h3>${producto.nombre}</h3>
@@ -788,9 +795,12 @@ function buscarProductos(texto) {
     gridResultados.innerHTML = "<p style='text-align:center;color:#888;'>No encontramos productos para esa búsqueda.</p>";
   } else {
     encontrados.forEach(producto => {
+      const tieneImagenBusqueda = !!(producto.imagen && producto.imagen.trim() !== "");
+      const claseFotoBusqueda = tieneImagenBusqueda ? "producto card-foto" : "producto card-foto sin-imagen";
+      const estiloFotoBusqueda = tieneImagenBusqueda ? `style="background-image:url('${producto.imagen}');"` : "";
       gridResultados.innerHTML += `
-        <article class="producto card-foto" style="background-image:url('${producto.imagen}');">
-          
+        <article class="${claseFotoBusqueda}" ${estiloFotoBusqueda}>
+
           <div class="card-contenido">
             <h3>${producto.nombre}</h3>
             <p class="precio">$${producto.precio}</p>
