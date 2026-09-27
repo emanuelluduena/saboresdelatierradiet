@@ -105,17 +105,17 @@ function abrirWhatsApp() {
    CATEGORÍAS
    ===================================== */
 const categorias = [
-  { nombre: "Semillas que Nutren", url: "semillas.html", icono: "ti-plant-2" },
-  { nombre: "El Snack Perfecto", url: "frutos-secos.html", icono: "ti-tools-kitchen-2" },
-  { nombre: "La Cocina Empieza Acá", url: "Harinas.html", icono: "ti-building-store" },
-  { nombre: "Dulce Consentido", url: "Reposteria.html", icono: "ti-cake" },
-  { nombre: "Recargá", url: "suplementos.html", icono: "ti-bolt" },
-  { nombre: "Mañanas que Cargan", url: "granolas.html", icono: "ti-sun" },
-  { nombre: "Fresquísimos", url: "congelados.html", icono: "ti-snowflake" },
-  { nombre: "El Cajón Sorpresa", url: "el-cajon-sorpresa.html", icono: "ti-gift" },
-  { nombre: "Infusiones & Cafés", url: "cafes.html", icono: "ti-coffee" },
-  { nombre: "Endulzantes & Naturales", url: "endulzantes.html", icono: "ti-bottle" },
-  { nombre: "El Rincón del Chocolate", url: "chocolates.html", icono: "ti-candy" },
+  { nombre: "Semillas", url: "semillas.html", icono: "ti-plant-2" },
+  { nombre: "Frutos Secos", url: "frutos-secos.html", icono: "ti-tools-kitchen-2" },
+  { nombre: "Harinas", url: "Harinas.html", icono: "ti-building-store" },
+  { nombre: "Repostería", url: "Reposteria.html", icono: "ti-cake" },
+  { nombre: "Suplementos", url: "suplementos.html", icono: "ti-bolt" },
+  { nombre: "Granolas", url: "granolas.html", icono: "ti-sun" },
+  { nombre: "Congelados", url: "congelados.html", icono: "ti-snowflake" },
+  { nombre: "Otros", url: "el-cajon-sorpresa.html", icono: "ti-gift" },
+  { nombre: "Cafés", url: "cafes.html", icono: "ti-coffee" },
+  { nombre: "Endulzantes", url: "endulzantes.html", icono: "ti-bottle" },
+  { nombre: "Chocolates", url: "chocolates.html", icono: "ti-candy" },
   { nombre: "Novedades", url: "productos-nuevos.html", icono: "ti-sparkles" },
 ];
 
