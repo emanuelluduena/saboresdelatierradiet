@@ -777,12 +777,10 @@ function mostrarAvisoWhatsAppSecundario(url) {
   `;
   document.body.appendChild(aviso);
 
+  // No se cierra solo: el cliente suele irse a la app de WhatsApp a mandar
+  // el primer pedido y puede tardar en volver, así que el aviso se queda
+  // esperando hasta que lo cierre él mismo con la ✕.
   aviso.querySelector("button").addEventListener("click", () => aviso.remove());
-
-  // Se oculta solo pasado un rato si no se usa
-  setTimeout(() => {
-    if (aviso.parentElement) aviso.remove();
-  }, 30000);
 }
 
 /* =====================================
