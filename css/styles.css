@@ -537,22 +537,33 @@ footer a:hover { text-decoration: underline; }
     padding-right: 20px;
   }
 
-  /* CATEGORÍAS — iconos más chicos */
-  .categoria-icono {
-    width: 56px;
-    height: 56px;
-  }
-
-  .categoria-icono i {
-    font-size: 24px;
+  /* CATEGORÍAS — grilla prolija de 3 columnas, más grandes y legibles */
+  .categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: initial;
+    gap: 18px 12px;
+    padding: 0 6px;
   }
 
   .categoria-card {
-    width: 70px;
+    width: 100%;
+  }
+
+  .categoria-icono {
+    width: 100%;
+    max-width: 92px;
+    height: 92px;
+    margin: 0 auto;
+  }
+
+  .categoria-icono i {
+    font-size: 34px;
   }
 
   .categoria-card span {
-    font-size: 10px;
+    font-size: 13px;
+    line-height: 1.25;
   }
 }
 
