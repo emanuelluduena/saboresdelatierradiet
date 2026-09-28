@@ -761,7 +761,18 @@ document.addEventListener("click", function(e) {
   // con un link real para que, con un toque más, el pedido llegue seguro
   // también al segundo número.
   mostrarAvisoWhatsAppSecundario(linkSecundario);
+
+  // El pedido ya se armó y se mandó por WhatsApp, así que vaciamos el
+  // carrito para que no quede cargado con la próxima visita.
+  vaciarCarrito();
+  cerrarCarrito();
 });
+
+function vaciarCarrito() {
+  carrito = [];
+  guardarCarrito();
+  actualizarCarrito();
+}
 
 function mostrarAvisoWhatsAppSecundario(url) {
   const anterior = document.getElementById("aviso-whatsapp-secundario");
