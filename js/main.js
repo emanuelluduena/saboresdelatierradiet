@@ -129,6 +129,16 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 let productos = [];
 
+// Productos que existen en Supabase pero NO se muestran en el sitio
+// (ni en las categorías, ni en la búsqueda, ni en la lista de precios en PDF).
+// Para volver a mostrarlos, borrá la línea correspondiente.
+const PRODUCTOS_OCULTOS = [
+  "84b93e82-1242-4334-aaf1-ed30314beb81", // Duraznos Congelados x 500 g
+  "c5cf1269-657d-4ba6-a938-47d603209aee", // Ananá Congelado x 500 g
+  "541a1001-7a4e-4e36-bf5b-b21508123207", // Frutillas Congeladas x 500 g
+  "31925886-aa74-4d54-82ec-646f588af3d4"  // Mango Congelado x 500 g
+];
+
 async function cargarProductos() {
   try {
     const resp = await fetch(
@@ -143,7 +153,9 @@ async function cargarProductos() {
     if (!resp.ok) throw new Error("Error al cargar productos: " + resp.status);
     const data = await resp.json();
     // Normaliza el precio (viene como string/numeric desde Postgres) a number
-    return data.map(p => ({ ...p, precio: Number(p.precio) }));
+    return data
+      .filter(p => !PRODUCTOS_OCULTOS.includes(p.id))
+      .map(p => ({ ...p, precio: Number(p.precio) }));
   } catch (err) {
     console.error("No se pudieron cargar los productos desde Supabase:", err);
     return [];
